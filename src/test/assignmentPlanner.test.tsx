@@ -59,7 +59,9 @@ describe('Assignment Planner behavior', () => {
   })
 
   it('adds a new assignment through the controlled form', async () => {
-    vi.spyOn(globalThis.crypto, 'randomUUID').mockReturnValue('new-assignment-id')
+    vi.spyOn(globalThis.crypto, 'randomUUID').mockReturnValue(
+      '11111111-1111-1111-1111-111111111111',
+    )
 
     renderWithProviders(
       <>
