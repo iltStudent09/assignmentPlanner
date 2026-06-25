@@ -26,10 +26,9 @@ describe('Assignment Planner behavior', () => {
 
     expect(screen.getByText('Loading assignments...')).toBeInTheDocument()
 
-    expect(
-      await screen.findByRole('link', { name: 'Linear Algebra Problem Set 3' }),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('Linear Algebra Problem Set 3')).toBeInTheDocument()
     expect(screen.getByText('Literature Reflection Essay')).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: 'View Details' })).toHaveLength(3)
   })
 
   it('toggles assignment completion state from the card', async () => {

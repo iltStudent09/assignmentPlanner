@@ -17,7 +17,7 @@ const initialFormValues: AssignmentFormValues = {
 
 function AddAssignmentPage() {
   const navigate = useNavigate()
-  const { addAssignment, setSelectedAssignmentId } = useAssignmentContext()
+  const { addAssignment } = useAssignmentContext()
   const [formValues, setFormValues] = useState<AssignmentFormValues>(initialFormValues)
   const [errors, setErrors] = useState<AssignmentFormErrors>({})
   const [submitMessage, setSubmitMessage] = useState<string>('')
@@ -59,7 +59,6 @@ function AddAssignmentPage() {
         .filter(Boolean),
     })
 
-    setSelectedAssignmentId(nextId)
     setFormValues(initialFormValues)
     setErrors({})
     setSubmitMessage('Assignment added successfully.')

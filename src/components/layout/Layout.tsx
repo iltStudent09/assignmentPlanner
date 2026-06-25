@@ -1,4 +1,6 @@
-import { Link, NavLink } from 'react-router-dom'
+import { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useAssignmentContext } from '../../context/AssignmentContext'
 
 type LayoutProps = {
@@ -6,8 +8,21 @@ type LayoutProps = {
 }
 
 function Layout({ children }: LayoutProps) {
-  const { theme, toggleTheme, selectedAssignmentId, favoriteAssignmentIds } =
+  const location = useLocation()
+  const { theme, toggleTheme, selectedAssignmentId, favoriteAssignmentIds, setSelectedAssignmentId } =
     useAssignmentContext()
+
+  useEffect(() => {
+    const routeMatch = location.pathname.match(/^\/assignments\/([^/]+)$/)
+    const routeId = routeMatch?.[1]
+
+    if (routeId && routeId !== 'new') {
+      setSelectedAssignmentId(routeId)
+      return
+    }
+
+    setSelectedAssignmentId(null)
+  }, [location.pathname, setSelectedAssignmentId])
 
   return (
     <div className="app-shell" data-theme={theme}>
@@ -15,8 +30,8 @@ function Layout({ children }: LayoutProps) {
         <h1>Assignment Planner</h1>
         <div className="app-meta">
           <p>Theme: {theme}</p>
-          <p>Favorites: {favoriteAssignmentIds.length}</p>
-          <p>Selected Assignment: {selectedAssignmentId ?? 'None'}</p>
+          <p>Starred Assignments: {favoriteAssignmentIds.length}</p>
+          <p>Selected Assignment ID: {selectedAssignmentId ?? 'None'}</p>
         </div>
         <button type="button" onClick={toggleTheme}>
           Switch to {theme === 'light' ? 'dark' : 'light'} theme
@@ -28,9 +43,6 @@ function Layout({ children }: LayoutProps) {
             </li>
             <li>
               <NavLink to="/assignments/new">Add Assignment</NavLink>
-            </li>
-            <li>
-              <Link to="/assignments/1">Assignment Detail</Link>
             </li>
           </ul>
         </nav>

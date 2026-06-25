@@ -8,7 +8,6 @@ type AssignmentCardProps = {
 
 function AssignmentCard({ assignment }: AssignmentCardProps) {
   const {
-    setSelectedAssignmentId,
     toggleFavoriteAssignment,
     isFavoriteAssignment,
     toggleAssignmentCompletion,
@@ -21,19 +20,15 @@ function AssignmentCard({ assignment }: AssignmentCardProps) {
 
   return (
     <article className="assignment-card">
-      <h3>
-        <Link
-          to={`/assignments/${assignment.id}`}
-          onClick={() => setSelectedAssignmentId(assignment.id)}
-        >
-          {assignment.title}
-        </Link>
-      </h3>
+      <h3>{assignment.title}</h3>
       <p>{assignment.course}</p>
       <p>Due: {assignment.dueDate}</p>
       <p>Priority: {assignment.priority}</p>
       <p>Status: {completed ? 'completed' : 'pending'}</p>
       <div className="card-actions">
+        <Link className="link-button" to={`/assignments/${assignment.id}`}>
+          View Details
+        </Link>
         <button
           type="button"
           onClick={() => toggleAssignmentCompletion(assignment.id, initiallyCompleted)}

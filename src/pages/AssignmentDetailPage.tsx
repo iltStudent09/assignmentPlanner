@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ErrorMessage from '../components/common/ErrorMessage'
 import LoadingState from '../components/common/LoadingState'
 import { useAssignmentContext } from '../context/AssignmentContext'
@@ -10,18 +9,11 @@ function AssignmentDetailPage() {
   const { assignment, loading, error } = useAssignmentDetail(id)
   const {
     selectedAssignmentId,
-    setSelectedAssignmentId,
     toggleFavoriteAssignment,
     isFavoriteAssignment,
     toggleAssignmentCompletion,
     isAssignmentCompleted,
   } = useAssignmentContext()
-
-  useEffect(() => {
-    if (id) {
-      setSelectedAssignmentId(id)
-    }
-  }, [id, setSelectedAssignmentId])
 
   if (loading) {
     return (
@@ -58,6 +50,7 @@ function AssignmentDetailPage() {
 
   return (
     <section className="page-section panel">
+      <Link to="/assignments">← Back to Assignments</Link>
       <h2>Assignment Detail</h2>
       <p>Selected in context: {selectedAssignmentId ?? 'None'}</p>
       <h3>{assignment.title}</h3>
