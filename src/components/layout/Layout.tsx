@@ -1,6 +1,10 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
-function Layout() {
+type LayoutProps = {
+  children: React.ReactNode
+}
+
+function Layout({ children }: LayoutProps) {
   return (
     <div>
       <header>
@@ -8,10 +12,10 @@ function Layout() {
         <nav aria-label="Primary">
           <ul>
             <li>
-              <Link to="/">Assignments</Link>
+              <NavLink to="/assignments">Assignments</NavLink>
             </li>
             <li>
-              <Link to="/assignments/new">Add Assignment</Link>
+              <NavLink to="/assignments/new">Add Assignment</NavLink>
             </li>
             <li>
               <Link to="/assignments/1">Assignment Detail</Link>
@@ -20,9 +24,7 @@ function Layout() {
         </nav>
       </header>
 
-      <main>
-        <Outlet />
-      </main>
+      <main>{children}</main>
 
       <footer>
         <small>Assignment Planner Foundation</small>
