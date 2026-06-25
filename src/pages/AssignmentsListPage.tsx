@@ -1,10 +1,33 @@
-import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
+import AssignmentCard from '../components/assignments/AssignmentCard'
+import AssignmentFilters from '../components/assignments/AssignmentFilters'
 import ErrorMessage from '../components/common/ErrorMessage'
 import LoadingState from '../components/common/LoadingState'
+import { useAssignmentContext } from '../context/AssignmentContext'
 import { useAssignments } from '../hooks/useAssignments'
 
 function AssignmentsListPage() {
-  const { assignments, loading, error } = useAssignments()
+  const { filters, isAssignmentCompleted } = useAssignmentContext()
+  const { assignments, loading, error } = useAssignments(filters.query)
+
+  const visibleAssignments = useMemo(() => {
+    return assignments.filter((assignment) => {
+      const completed = isAssignmentCompleted(
+        assignment.id,
+        assignment.status === 'completed',
+      )
+
+      const statusMatch =
+        filters.status === 'all' ||
+        (filters.status === 'completed' && completed) ||
+        (filters.status === 'pending' && !completed)
+
+      const priorityMatch =
+        filters.priority === 'all' || assignment.priority === filters.priority
+
+      return statusMatch && priorityMatch
+    })
+  }, [assignments, filters.status, filters.priority, isAssignmentCompleted])
 
   if (loading) {
     return (
@@ -27,19 +50,14 @@ function AssignmentsListPage() {
   return (
     <section>
       <h2>Assignments List</h2>
-      {assignments.length === 0 ? (
+      <AssignmentFilters />
+      {visibleAssignments.length === 0 ? (
         <p>No assignments found.</p>
       ) : (
         <ul>
-          {assignments.map((assignment) => (
+          {visibleAssignments.map((assignment) => (
             <li key={assignment.id}>
-              <h3>
-                <Link to={`/assignments/${assignment.id}`}>{assignment.title}</Link>
-              </h3>
-              <p>{assignment.course}</p>
-              <p>Due: {assignment.dueDate}</p>
-              <p>Priority: {assignment.priority}</p>
-              <p>Status: {assignment.status}</p>
+              <AssignmentCard assignment={assignment} />
             </li>
           ))}
         </ul>
