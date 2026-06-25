@@ -10,7 +10,7 @@ function AssignmentFilters() {
   } = useAssignmentContext()
 
   return (
-    <section aria-label="Assignment filters">
+    <section className="panel" aria-label="Assignment filters">
       <h3>Filters</h3>
 
       <label htmlFor="assignment-search">Search</label>
@@ -49,7 +49,7 @@ function AssignmentFilters() {
         <option value="high">High</option>
       </select>
 
-      <button type="button" onClick={clearFilters}>
+      <button className="btn-secondary" type="button" onClick={clearFilters}>
         Clear Filters
       </button>
     </section>

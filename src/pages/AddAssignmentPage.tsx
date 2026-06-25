@@ -67,10 +67,10 @@ function AddAssignmentPage() {
   }
 
   return (
-    <section>
+    <section className="page-section">
       <h2>Add Assignment</h2>
-      <form onSubmit={handleSubmit} noValidate>
-        <div>
+      <form className="panel form-grid" onSubmit={handleSubmit} noValidate>
+        <div className="form-row">
           <label htmlFor="title">Title</label>
           <input
             id="title"
@@ -82,7 +82,7 @@ function AddAssignmentPage() {
           {errors.title && <p role="alert">{errors.title}</p>}
         </div>
 
-        <div>
+        <div className="form-row">
           <label htmlFor="course">Course</label>
           <input
             id="course"
@@ -94,7 +94,7 @@ function AddAssignmentPage() {
           {errors.course && <p role="alert">{errors.course}</p>}
         </div>
 
-        <div>
+        <div className="form-row">
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
@@ -105,7 +105,7 @@ function AddAssignmentPage() {
           />
         </div>
 
-        <div>
+        <div className="form-row">
           <label htmlFor="dueDate">Due Date</label>
           <input
             id="dueDate"
@@ -117,7 +117,7 @@ function AddAssignmentPage() {
           {errors.dueDate && <p role="alert">{errors.dueDate}</p>}
         </div>
 
-        <div>
+        <div className="form-row">
           <label htmlFor="priority">Priority</label>
           <select
             id="priority"
@@ -133,7 +133,7 @@ function AddAssignmentPage() {
           {errors.priority && <p role="alert">{errors.priority}</p>}
         </div>
 
-        <div>
+        <div className="form-row">
           <label htmlFor="tags">Tags (comma-separated)</label>
           <input
             id="tags"

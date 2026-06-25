@@ -10,17 +10,19 @@ function Layout({ children }: LayoutProps) {
     useAssignmentContext()
 
   return (
-    <div data-theme={theme}>
-      <header>
+    <div className="app-shell" data-theme={theme}>
+      <header className="app-header">
         <h1>Assignment Planner</h1>
-        <p>Theme: {theme}</p>
-        <p>Favorites: {favoriteAssignmentIds.length}</p>
-        <p>Selected Assignment: {selectedAssignmentId ?? 'None'}</p>
+        <div className="app-meta">
+          <p>Theme: {theme}</p>
+          <p>Favorites: {favoriteAssignmentIds.length}</p>
+          <p>Selected Assignment: {selectedAssignmentId ?? 'None'}</p>
+        </div>
         <button type="button" onClick={toggleTheme}>
           Switch to {theme === 'light' ? 'dark' : 'light'} theme
         </button>
         <nav aria-label="Primary">
-          <ul>
+          <ul className="nav-list">
             <li>
               <NavLink to="/assignments">Assignments</NavLink>
             </li>
@@ -34,9 +36,9 @@ function Layout({ children }: LayoutProps) {
         </nav>
       </header>
 
-      <main>{children}</main>
+      <main className="app-main">{children}</main>
 
-      <footer>
+      <footer className="app-footer">
         <small>Assignment Planner Foundation</small>
       </footer>
     </div>

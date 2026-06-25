@@ -20,7 +20,7 @@ function AssignmentCard({ assignment }: AssignmentCardProps) {
   const favorite = isFavoriteAssignment(assignment.id)
 
   return (
-    <article>
+    <article className="assignment-card">
       <h3>
         <Link
           to={`/assignments/${assignment.id}`}
@@ -33,15 +33,17 @@ function AssignmentCard({ assignment }: AssignmentCardProps) {
       <p>Due: {assignment.dueDate}</p>
       <p>Priority: {assignment.priority}</p>
       <p>Status: {completed ? 'completed' : 'pending'}</p>
-      <button
-        type="button"
-        onClick={() => toggleAssignmentCompletion(assignment.id, initiallyCompleted)}
-      >
-        Mark as {completed ? 'incomplete' : 'complete'}
-      </button>
-      <button type="button" onClick={() => toggleFavoriteAssignment(assignment.id)}>
-        {favorite ? 'Unstar' : 'Star'}
-      </button>
+      <div className="card-actions">
+        <button
+          type="button"
+          onClick={() => toggleAssignmentCompletion(assignment.id, initiallyCompleted)}
+        >
+          Mark as {completed ? 'incomplete' : 'complete'}
+        </button>
+        <button type="button" onClick={() => toggleFavoriteAssignment(assignment.id)}>
+          {favorite ? 'Unstar' : 'Star'}
+        </button>
+      </div>
     </article>
   )
 }

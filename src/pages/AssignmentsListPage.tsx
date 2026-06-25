@@ -31,7 +31,7 @@ function AssignmentsListPage() {
 
   if (loading) {
     return (
-      <section>
+      <section className="page-section">
         <h2>Assignments List</h2>
         <LoadingState message="Loading assignments..." />
       </section>
@@ -40,7 +40,7 @@ function AssignmentsListPage() {
 
   if (error) {
     return (
-      <section>
+      <section className="page-section">
         <h2>Assignments List</h2>
         <ErrorMessage message={error} />
       </section>
@@ -48,13 +48,13 @@ function AssignmentsListPage() {
   }
 
   return (
-    <section>
+    <section className="page-section">
       <h2>Assignments List</h2>
       <AssignmentFilters />
       {visibleAssignments.length === 0 ? (
         <p>No assignments found.</p>
       ) : (
-        <ul>
+        <ul className="assignment-list">
           {visibleAssignments.map((assignment) => (
             <li key={assignment.id}>
               <AssignmentCard assignment={assignment} />

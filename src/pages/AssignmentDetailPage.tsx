@@ -25,7 +25,7 @@ function AssignmentDetailPage() {
 
   if (loading) {
     return (
-      <section>
+      <section className="page-section">
         <h2>Assignment Detail</h2>
         <LoadingState message="Loading assignment detail..." />
       </section>
@@ -34,7 +34,7 @@ function AssignmentDetailPage() {
 
   if (error) {
     return (
-      <section>
+      <section className="page-section">
         <h2>Assignment Detail</h2>
         <ErrorMessage message={error} />
       </section>
@@ -43,7 +43,7 @@ function AssignmentDetailPage() {
 
   if (!assignment) {
     return (
-      <section>
+      <section className="page-section">
         <h2>Assignment Detail</h2>
         <p>Assignment was not found.</p>
       </section>
@@ -57,7 +57,7 @@ function AssignmentDetailPage() {
   const favorite = isFavoriteAssignment(assignment.id)
 
   return (
-    <section>
+    <section className="page-section panel">
       <h2>Assignment Detail</h2>
       <p>Selected in context: {selectedAssignmentId ?? 'None'}</p>
       <h3>{assignment.title}</h3>
