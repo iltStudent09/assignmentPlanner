@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useAssignmentContext } from '../context/AssignmentContext'
 import { fetchAssignments } from '../services/assignmentService'
 import type { Assignment } from '../types/assignment'
 
@@ -9,6 +10,7 @@ type UseAssignmentsResult = {
 }
 
 export function useAssignments(searchQuery = ''): UseAssignmentsResult {
+  const { addedAssignments } = useAssignmentContext()
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
@@ -44,19 +46,23 @@ export function useAssignments(searchQuery = ''): UseAssignmentsResult {
   }, [])
 
   const normalizedQuery = searchQuery.trim().toLowerCase()
+  const mergedAssignments = useMemo(
+    () => [...addedAssignments, ...assignments],
+    [addedAssignments, assignments],
+  )
 
   const filteredAssignments = useMemo(() => {
     if (!normalizedQuery) {
-      return assignments
+      return mergedAssignments
     }
 
-    return assignments.filter((assignment) => {
+    return mergedAssignments.filter((assignment) => {
       return (
         assignment.title.toLowerCase().includes(normalizedQuery) ||
         assignment.course.toLowerCase().includes(normalizedQuery)
       )
     })
-  }, [assignments, normalizedQuery])
+  }, [mergedAssignments, normalizedQuery])
 
   return {
     assignments: filteredAssignments,

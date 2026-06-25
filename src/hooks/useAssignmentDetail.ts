@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAssignmentContext } from '../context/AssignmentContext'
 import { fetchAssignmentById } from '../services/assignmentService'
 import type { Assignment } from '../types/assignment'
 
@@ -9,6 +10,7 @@ type UseAssignmentDetailResult = {
 }
 
 export function useAssignmentDetail(id: string | undefined): UseAssignmentDetailResult {
+  const { addedAssignments } = useAssignmentContext()
   const [assignment, setAssignment] = useState<Assignment | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
@@ -19,6 +21,14 @@ export function useAssignmentDetail(id: string | undefined): UseAssignmentDetail
     async function loadAssignment(): Promise<void> {
       if (!id) {
         setError('Missing assignment ID.')
+        setLoading(false)
+        return
+      }
+
+      const addedAssignment = addedAssignments.find((item) => item.id === id)
+      if (addedAssignment) {
+        setAssignment(addedAssignment)
+        setError(null)
         setLoading(false)
         return
       }
@@ -48,7 +58,7 @@ export function useAssignmentDetail(id: string | undefined): UseAssignmentDetail
     return () => {
       isMounted = false
     }
-  }, [id])
+  }, [addedAssignments, id])
 
   return {
     assignment,

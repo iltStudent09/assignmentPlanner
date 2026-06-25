@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState } from 'react'
+import type { Assignment } from '../types/assignment'
 
 export type AssignmentFilterState = {
   query: string
@@ -7,11 +8,13 @@ export type AssignmentFilterState = {
 }
 
 type AssignmentContextValue = {
+  addedAssignments: Assignment[]
   completedAssignmentIds: string[]
   favoriteAssignmentIds: string[]
   selectedAssignmentId: string | null
   filters: AssignmentFilterState
   theme: 'light' | 'dark'
+  addAssignment: (assignment: Assignment) => void
   toggleAssignmentCompletion: (id: string, initiallyCompleted?: boolean) => void
   isAssignmentCompleted: (id: string, initiallyCompleted?: boolean) => boolean
   toggleFavoriteAssignment: (id: string) => void
@@ -37,12 +40,17 @@ type AssignmentProviderProps = {
 }
 
 export function AssignmentProvider({ children }: AssignmentProviderProps) {
+  const [addedAssignments, setAddedAssignments] = useState<Assignment[]>([])
   const [completedAssignmentIds, setCompletedAssignmentIds] = useState<string[]>([])
   const [incompleteAssignmentIds, setIncompleteAssignmentIds] = useState<string[]>([])
   const [favoriteAssignmentIds, setFavoriteAssignmentIds] = useState<string[]>([])
   const [selectedAssignmentId, setSelectedAssignmentId] = useState<string | null>(null)
   const [filters, setFilters] = useState<AssignmentFilterState>(defaultFilters)
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  function addAssignment(assignment: Assignment): void {
+    setAddedAssignments((previous) => [assignment, ...previous])
+  }
 
   function isAssignmentCompleted(id: string, initiallyCompleted = false): boolean {
     if (completedAssignmentIds.includes(id)) {
@@ -109,11 +117,13 @@ export function AssignmentProvider({ children }: AssignmentProviderProps) {
 
   const value = useMemo<AssignmentContextValue>(
     () => ({
+      addedAssignments,
       completedAssignmentIds,
       favoriteAssignmentIds,
       selectedAssignmentId,
       filters,
       theme,
+      addAssignment,
       toggleAssignmentCompletion,
       isAssignmentCompleted,
       toggleFavoriteAssignment,
@@ -126,6 +136,7 @@ export function AssignmentProvider({ children }: AssignmentProviderProps) {
       toggleTheme,
     }),
     [
+      addedAssignments,
       completedAssignmentIds,
       incompleteAssignmentIds,
       favoriteAssignmentIds,
