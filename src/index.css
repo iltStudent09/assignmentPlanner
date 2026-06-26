@@ -181,6 +181,39 @@ textarea {
   background: #ffffff;
 }
 
+.form-input-error {
+  border-color: #dc2626;
+  outline: 1px solid #dc2626;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+.error-summary {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+.error-summary p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.error-summary ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.success-text {
+  color: #166534;
+  font-size: 0.9rem;
+}
+
 [data-theme='dark'] {
   color: #e5e7eb;
 }
@@ -202,4 +235,23 @@ textarea {
   background: #1f2937;
   color: #f3f4f6;
   border-color: #4b5563;
+}
+
+[data-theme='dark'] .form-input-error {
+  border-color: #f87171;
+  outline-color: #f87171;
+}
+
+[data-theme='dark'] .error-text {
+  color: #fca5a5;
+}
+
+[data-theme='dark'] .error-summary {
+  border-color: #7f1d1d;
+  background: #2b1111;
+  color: #fca5a5;
+}
+
+[data-theme='dark'] .success-text {
+  color: #86efac;
 }
