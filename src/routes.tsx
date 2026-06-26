@@ -3,11 +3,13 @@ import Layout from './components/layout/Layout'
 import AddAssignmentPage from './pages/AddAssignmentPage'
 import AssignmentDetailPage from './pages/AssignmentDetailPage'
 import AssignmentsListPage from './pages/AssignmentsListPage'
+import RouteErrorPage from './pages/RouteErrorPage'
 
 export const appRouter = createBrowserRouter([
   {
     path: '/',
     element: <Navigate to="/assignments" replace />,
+    errorElement: <RouteErrorPage />,
   },
   {
     path: '/assignments',
@@ -16,6 +18,7 @@ export const appRouter = createBrowserRouter([
         <AssignmentsListPage />
       </Layout>
     ),
+    errorElement: <RouteErrorPage />,
   },
   {
     path: '/assignments/new',
@@ -24,6 +27,7 @@ export const appRouter = createBrowserRouter([
         <AddAssignmentPage />
       </Layout>
     ),
+    errorElement: <RouteErrorPage />,
   },
   {
     path: '/assignments/:id',
@@ -32,5 +36,6 @@ export const appRouter = createBrowserRouter([
         <AssignmentDetailPage />
       </Layout>
     ),
+    errorElement: <RouteErrorPage />,
   },
 ])
